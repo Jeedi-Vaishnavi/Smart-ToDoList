@@ -1,0 +1,84 @@
+
+
+<div class="text-center">
+  <h3>Smart ToDoList with Priority Management</h3>
+</div>
+<div class="row">
+  <div class="col-8">
+    <div class="card">
+      <div class="card-header bg-success text-white">
+        <h5>Task List</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Task Name</th>
+                  <th>Deadline</th>
+                  <th>Priority</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <tr *ngFor="let item of taskList; let i = index">
+                  
+                 
+                    <td>{{ item.TaskName }}</td>
+                    <td>{{ item.Deadline }}</td>
+                    <td>{{ item.Priority }}</td>
+                    <td class="text-center">
+                     
+                      <button class="btn btn-danger mx-2" (click)="onDelete(item.id)">Delete</button>
+                    </td>
+                    
+                  </tr>
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-4">
+    <div class="card">
+      <div class="card-header bg-success text-white">
+        <h5>New Task</h5>
+      </div>
+      <div class="card-body">
+        <!-- ✅ FIX: Ensure form wraps all elements -->
+        <form [formGroup]="taskForm" (ngSubmit)="onSave()">
+          <div class="row">
+            <div class="col-12">
+              <label for="taskName">Task Name</label>
+              <input type="text" id="taskName" formControlName="TaskName" class="form-control">
+            </div>
+            <div class="col-6">
+              <label for="deadline">Deadline</label>
+              <input type="date" id="deadline" formControlName="Deadline" class="form-control">
+            </div>
+            <div class="col-6">
+              <label for="priority">Priority</label>
+              <input type="text" id="priority" class="form-control" [value]="suggestPriority(taskForm.value.Deadline)" disabled>
+            </div>
+          </div>
+
+          <!-- ✅ FIX: Moved this inside the <form> to prevent error -->
+          <div class="row pt-2">
+            <div class="col-6 text-center">
+              <button type="button" class="btn btn-secondary" (click)="taskForm.reset()">Reset</button>
+            </div>
+            <div class="col-6 text-center">
+              <button type="submit" class="btn btn-success">Save Task</button>
+            </div>
+          </div>
+        </form> 
+      </div>
+    </div>
+  </div>
+</div>
+
